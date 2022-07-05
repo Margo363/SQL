@@ -1,4 +1,4 @@
--- создадим таблицу по доставке товара
+-- СЃРѕР·РґР°РґРёРј С‚Р°Р±Р»РёС†Сѓ РїРѕ РґРѕСЃС‚Р°РІРєРµ С‚РѕРІР°СЂР°
 
 create table delivery(
 	delivery_id serial primary key,
@@ -6,25 +6,25 @@ create table delivery(
 	delivery_date date not null,
 	time_range text[]not null,
 	staff_id int references staff(staff_id) not null,
-	status del_status not null default 'в обработке',
+	status del_status not null default 'РІ РѕР±СЂР°Р±РѕС‚РєРµ',
 	list_update timestamp,
 	create_date timestamp default now(),
 	deleted boolean not null default false
 )	
 select * from delivery
 
---добавим в таблицу с заказами ограничение внешнего ключа для столбца с 
-доставкой
+--РґРѕР±Р°РІРёРј РІ С‚Р°Р±Р»РёС†Сѓ СЃ Р·Р°РєР°Р·Р°РјРё РѕРіСЂР°РЅРёС‡РµРЅРёРµ РІРЅРµС€РЅРµРіРѕ РєР»СЋС‡Р° РґР»СЏ СЃС‚РѕР»Р±С†Р° СЃ 
+РґРѕСЃС‚Р°РІРєРѕР№
 
 alter table orders add constraint orders_delivery_fkey foreign key (delivery_id)
 	references delivery(delivery_id)
 	
---удаление внешнего ключа
+--СѓРґР°Р»РµРЅРёРµ РІРЅРµС€РЅРµРіРѕ РєР»СЋС‡Р°
 
 ALTER TABLE orders 
 DROP CONSTRAINT orders_delivery_newkey;
 
---изменим данные в заказах, добавив данные по идентификатору доставки
+--РёР·РјРµРЅРёРј РґР°РЅРЅС‹Рµ РІ Р·Р°РєР°Р·Р°С…, РґРѕР±Р°РІРёРІ РґР°РЅРЅС‹Рµ РїРѕ РёРґРµРЅС‚РёС„РёРєР°С‚РѕСЂСѓ РґРѕСЃС‚Р°РІРєРё
 
 insert into delivery (address_id, delivery_date, time_range,staff_id)
 values (329, '2022.10.25', array['10:00:00''17:30:00'], 3),
@@ -57,7 +57,7 @@ where order_id = 5
 
 select * from orders
 
---попробуем удалить запись из доставки
+--РїРѕРїСЂРѕР±СѓРµРј СѓРґР°Р»РёС‚СЊ Р·Р°РїРёСЃСЊ РёР· РґРѕСЃС‚Р°РІРєРё
 
 delete from delivery 
 where delivery_id = 1
