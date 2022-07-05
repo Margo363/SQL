@@ -1,4 +1,4 @@
---создадим таблицу по доставке товара
+-- создадим таблицу по доставке товара
 
 create table delivery(
 	delivery_id serial primary key,
